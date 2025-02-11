@@ -39,7 +39,7 @@ function addExpense(expenses):
             display "Expense added."
             break
         else:
-            display "Invalid expense amount. Try again.
+            display "Invalid expense amount. Try again."
 
 function displaySummary(monthlyIncome, expenses):
     totalExpenses = sum of all values in expenses
