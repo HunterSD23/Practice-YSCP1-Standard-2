@@ -22,9 +22,35 @@
             display 'Invalid choice. Try again.'
 """
 
+def main():
+    monthlyIncome = getMonthlyIncome()
+    expenses = {}
+
+    while True:    
+        print("\n\n##############################################################")
+        print("#####                                                    #####")
+        print("###   Welcome to the Budget Planner and Expense Tracker!   ###")
+        print("#####                                                    #####")
+        print("##############################################################\n")
+        print("What would you like to do?")
+        print("1. Add an Expense")
+        print("2. View Expenses")
+        print("3. Quit\n")
+
+        userChoice = int(input("Pick an option: "))
+        if userChoice == 1:
+            addExpense(expenses)
+        elif userChoice == 2: 
+            displaySummary(monthlyIncome, expenses)
+        elif userChoice == 3:
+            print("Goodbye!\n")
+            break
+        else:
+            print("Invalid choice. Try again.")
+
 def getMonthlyIncome():
     while True:
-        monthlyIncome = float(input())
+        monthlyIncome = float(input("Enter Your Monthly Income: "))
 
         if monthlyIncome >= 0:
             return monthlyIncome
@@ -37,44 +63,23 @@ def addExpense(expenses):
     while True:
         amount = float(input("Please enter the expense amount: "))
 
-        # if amount >= 0:
+        if amount >= 0:
+            expenses[category] = expenses.get(category, 0) + amount
+            print("Expense added.")
+            break
 
 def displaySummary(monthlyIncome, expenses):
-    totalExpenses = expenses
-    remainingBudget = monthlyIncome - totalExpenses
+    totalExpenses = sum(expenses.values())
+    remainingBudget = (monthlyIncome - totalExpenses)
 
-    print(monthlyIncome)
-    print("(supposed to print the categories and their respective amounts spent, along with percentages)")
-    print(totalExpenses)
-    print(remainingBudget)
+    print("Total Income: $", monthlyIncome)
+    print("Expenses:")
+    for category, amount in expenses.items():
+        percentage = (amount / monthlyIncome) * 100
+        print(f"{category}: $ {amount:.2f} ( {percentage:.2f} %)")
 
-def main():
-    print("\n\n##############################################################")
-    print("#####                                                    #####")
-    print("###   Welcome to the Budget Planner and Expense Tracker!   ###")
-    print("#####                                                    #####")
-    print("##############################################################\n")
-
-    monthlyIncome = getMonthlyIncome()
-    # expenses = empty dictionary
-
-    while True:
-        print("What would you like to do?")
-        print("1. Add an Expense")
-        print("2. View Expenses")
-        print("3. Quit")
-
-        userChoice = int(input("Pick an option: "))
-        if userChoice == 1:
-            addExpense(expenses)
-        elif userChoice == 2: 
-            displaySummary(monthlyIncome, expenses)
-        elif userChoice == 3:
-            print("Goodbye!")
-            break
-        else:
-            print("Invalid choice. Try again.")
-
+    print("Total Expenses: $", totalExpenses)
+    print("Remaining Budget: $", remainingBudget)
 
 """
 Code to start the application
